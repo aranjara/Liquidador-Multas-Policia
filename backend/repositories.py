@@ -17,7 +17,7 @@ class UserRepository:
     def authenticate(username: str, password: str) -> Optional[dict]:
         conn = get_connection()
         row = conn.execute(
-            'SELECT * FROM usuarios WHERE username = ? AND activo = 1',
+            'SELECT * FROM usuarios WHERE username = ? COLLATE NOCASE AND activo = 1',
             (username.strip(),),
         ).fetchone()
         conn.close()
