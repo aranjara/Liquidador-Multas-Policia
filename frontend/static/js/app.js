@@ -1,4 +1,49 @@
-import { animate, spring } from 'https://cdn.jsdelivr.net/npm/motion@12.38.0/+esm';
+// Fallbacks autosanables locales para ejecución sin internet/intranet municipal
+let animate = async (element, keyframes, options) => {
+    if (typeof element === 'string') element = document.querySelectorAll(element);
+    const elements = element instanceof NodeList || Array.isArray(element) ? element : [element];
+    
+    elements.forEach(el => {
+        if (!el) return;
+        if (keyframes) {
+            if (keyframes.opacity !== undefined) {
+                const opacityVal = Array.isArray(keyframes.opacity) ? keyframes.opacity[keyframes.opacity.length - 1] : keyframes.opacity;
+                el.style.opacity = opacityVal;
+            }
+            if (keyframes.transform !== undefined) {
+                const transformVal = Array.isArray(keyframes.transform) ? keyframes.transform[keyframes.transform.length - 1] : keyframes.transform;
+                el.style.transform = transformVal;
+            }
+            if (keyframes.scale !== undefined) {
+                const scaleVal = Array.isArray(keyframes.scale) ? keyframes.scale[keyframes.scale.length - 1] : keyframes.scale;
+                el.style.transform = (el.style.transform || '').replace(/scale\([^)]*\)/g, '') + ` scale(${scaleVal})`;
+            }
+            if (keyframes.y !== undefined) {
+                const yVal = Array.isArray(keyframes.y) ? keyframes.y[keyframes.y.length - 1] : keyframes.y;
+                el.style.transform = (el.style.transform || '').replace(/translateY\([^)]*\)/g, '') + ` translateY(${typeof yVal === 'number' ? yVal + 'px' : yVal})`;
+            }
+            if (keyframes.x !== undefined) {
+                const xVal = Array.isArray(keyframes.x) ? keyframes.x[keyframes.x.length - 1] : keyframes.x;
+                el.style.transform = (el.style.transform || '').replace(/translateX\([^)]*\)/g, '') + ` translateX(${typeof xVal === 'number' ? xVal + 'px' : xVal})`;
+            }
+        }
+    });
+    return Promise.resolve();
+};
+
+let spring = (config) => 'ease-out';
+
+// Intentar cargar la librería Motion del CDN de manera asíncrona y segura
+(async () => {
+    try {
+        const module = await import('https://cdn.jsdelivr.net/npm/motion@12.38.0/+esm');
+        animate = module.animate;
+        spring = module.spring;
+        console.log('Motion library cargada exitosamente del CDN.');
+    } catch (e) {
+        console.warn('Fallo al cargar la librería Motion del CDN. Usando fallbacks locales sin conexión.', e);
+    }
+})();
 
 // --- ESTADO GLOBAL CLIENTE ---
 let state = {

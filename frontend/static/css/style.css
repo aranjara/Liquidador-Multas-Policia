@@ -15,36 +15,36 @@
     --hue-warning: 35;    /* Amber Orange */
     --hue-danger: 350;    /* Alizarin Red */
 
-    --color-bg-dark: hsl(210, 45%, 7%);
-    --color-bg-deep: hsl(213, 52%, 4%);
+    --color-bg-dark: #f0f4f8;             /* Soft light blue-gray background */
+    --color-bg-deep: #e2eaf0;             /* Section and card panel background */
     
-    --color-primary: hsl(var(--hue-primary), 85%, 65%);
-    --color-primary-glow: hsla(var(--hue-primary), 85%, 65%, 0.15);
-    --color-primary-hover: hsl(var(--hue-primary), 90%, 75%);
+    --color-primary: #1565c0;             /* Strong, elegant municipal blue */
+    --color-primary-glow: rgba(21, 101, 192, 0.08);
+    --color-primary-hover: #0d47a1;
     
-    --color-secondary: hsl(var(--hue-secondary), 90%, 60%);
-    --color-secondary-glow: hsla(var(--hue-secondary), 90%, 60%, 0.15);
-    --color-secondary-hover: hsl(var(--hue-secondary), 95%, 70%);
+    --color-secondary: #f57c00;           /* Elegant warm gold/amber */
+    --color-secondary-glow: rgba(245, 124, 0, 0.08);
+    --color-secondary-hover: #e65100;
 
-    --color-success: hsl(var(--hue-success), 75%, 50%);
-    --color-success-bg: hsla(var(--hue-success), 75%, 50%, 0.1);
+    --color-success: #2e7d32;             /* Forest green */
+    --color-success-bg: rgba(46, 125, 50, 0.08);
     
-    --color-warning: hsl(var(--hue-warning), 85%, 55%);
-    --color-warning-bg: hsla(var(--hue-warning), 85%, 55%, 0.1);
+    --color-warning: #f9a825;             /* Amber yellow */
+    --color-warning-bg: rgba(249, 168, 37, 0.08);
     
-    --color-danger: hsl(var(--hue-danger), 80%, 55%);
-    --color-danger-bg: hsla(var(--hue-danger), 80%, 55%, 0.1);
+    --color-danger: #c62828;              /* Strong red */
+    --color-danger-bg: rgba(198, 40, 40, 0.08);
 
-    --color-text-main: hsl(210, 15%, 90%);
-    --color-text-muted: hsl(210, 10%, 65%);
-    --color-text-inverse: hsl(213, 52%, 4%);
+    --color-text-main: #1e293b;           /* Slate 800 for dark readable text */
+    --color-text-muted: #475569;          /* Slate 600 for labels and subtitles */
+    --color-text-inverse: #ffffff;        /* White text for primary buttons */
 
-    /* Glassmorphic variables */
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-border-hover: rgba(255, 255, 255, 0.15);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-    --glass-blur: blur(16px);
+    /* Glassmorphic variables tailored for a soft premium light theme */
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.85);
+    --glass-border-hover: rgba(21, 101, 192, 0.15);
+    --glass-shadow: 0 10px 30px rgba(30, 96, 145, 0.05);
+    --glass-blur: blur(20px);
     
     --radius-sm: 8px;
     --radius-md: 16px;
@@ -74,7 +74,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 700;
-    color: #ffffff;
+    color: var(--color-text-main);
     line-height: 1.25;
 }
 
@@ -292,10 +292,10 @@ input[type="date"],
 select {
     width: 100%;
     padding: 12px 16px;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(21, 101, 192, 0.15);
     border-radius: var(--radius-sm);
-    color: #ffffff;
+    color: var(--color-text-main);
     font-family: var(--font-body);
     font-size: 14px;
     outline: none;
@@ -304,13 +304,13 @@ select {
 
 input:focus, select:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 10px var(--color-primary-glow);
-    background: rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 10px rgba(21, 101, 192, 0.15);
+    background: #ffffff;
 }
 
 select option {
-    background: var(--color-bg-deep);
-    color: #ffffff;
+    background: #ffffff;
+    color: var(--color-text-main);
 }
 
 .form-text {
@@ -344,8 +344,8 @@ select option {
     position: relative;
     height: 20px;
     width: 20px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--glass-border);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(21, 101, 192, 0.2);
     border-radius: 4px;
     flex-shrink: 0;
     margin-top: 3px;
@@ -387,7 +387,7 @@ select option {
 .checkbox-text strong {
     font-family: var(--font-heading);
     font-size: 14px;
-    color: #ffffff;
+    color: var(--color-text-main);
 }
 
 .checkbox-text small {
@@ -427,9 +427,7 @@ select option {
     justify-content: center;
     min-height: 100vh;
     padding: 28px;
-    background:
-        linear-gradient(120deg, rgba(3, 17, 30, 0.84), rgba(5, 42, 66, 0.55)),
-        url('/static/img/login-rionegro.png') center / cover no-repeat;
+    background: linear-gradient(135deg, #ffffff 0%, #e6f2ff 100%);
 }
 
 .login-shell {
@@ -439,15 +437,13 @@ select option {
     grid-template-columns: minmax(360px, 1.05fr) minmax(360px, 440px);
     overflow: hidden;
     border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 26px 80px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(21, 101, 192, 0.12);
+    box-shadow: 0 20px 60px rgba(30, 96, 145, 0.08);
 }
 
 .login-visual {
     min-height: 100%;
-    background:
-        linear-gradient(180deg, rgba(3, 20, 36, 0.08), rgba(3, 20, 36, 0.3)),
-        url('/static/img/login-rionegro.png') center / cover no-repeat;
+    background: #07345b url('/static/img/login-rionegro.png') center / contain no-repeat;
     position: relative;
 }
 
@@ -455,7 +451,7 @@ select option {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(3, 17, 30, 0) 62%, rgba(3, 17, 30, 0.62) 100%);
+    background: linear-gradient(90deg, rgba(7, 52, 91, 0) 70%, rgba(255, 255, 255, 0.95) 100%);
 }
 
 .login-card {
@@ -465,7 +461,7 @@ select option {
     position: relative;
     border: 0;
     border-radius: 0;
-    background: rgba(4, 18, 31, 0.88);
+    background: rgba(255, 255, 255, 0.95);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1106,10 +1102,10 @@ select option {
     }
     .login-visual {
         min-height: 255px;
-        background-position: center 42%;
+        background: #07345b url('/static/img/login-rionegro.png') center / contain no-repeat;
     }
     .login-visual::after {
-        background: linear-gradient(180deg, rgba(3, 17, 30, 0) 45%, rgba(3, 17, 30, 0.72) 100%);
+        background: linear-gradient(180deg, rgba(7, 52, 91, 0) 45%, rgba(255, 255, 255, 0.95) 100%);
     }
     .login-card {
         min-height: calc(100vh - 255px);
