@@ -65,3 +65,23 @@ El sistema utiliza una base de datos SQLite persistente con las siguientes tabla
 ## 5. Historial de Versiones
 - **v15 (Escritorio)**: Lanzamiento final de escritorio con base de datos SQLite local, módulo de administración de usuarios y cambio de claves provisionales.
 - **v16 (Web)**: Inicio de la migración completa a versión web responsiva de alto rendimiento.
+- **v16.1 (Git & Server Setup)**: Inicialización del repositorio Git local, adición de `.gitignore` optimizado y validación exitosa del servidor Flask en http://127.0.0.1:5000.
+
+---
+
+## 6. Procedimiento para Subir a GitHub
+Para vincular este proyecto a tu cuenta de GitHub y subirlo por primera vez, ejecuta los siguientes comandos en tu terminal desde la raíz del proyecto:
+
+1. **Crear repositorio en GitHub**: Crea un repositorio vacío en tu cuenta de GitHub (ej: `liquidador-multas-web`).
+2. **Vincular el repositorio remoto**:
+   ```bash
+   git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+   ```
+3. **Renombrar la rama principal (opcional, recomendado)**:
+   ```bash
+   git branch -M main
+   ```
+4. **Subir los archivos**:
+   ```bash
+   git push -u origin main
+   ```
