@@ -429,7 +429,7 @@ select option {
     padding: 28px;
     background:
         linear-gradient(120deg, rgba(3, 17, 30, 0.84), rgba(5, 42, 66, 0.55)),
-        url('/static/img/login-rionegro.svg') center / cover no-repeat;
+        url('/static/img/login-rionegro.png') center / cover no-repeat;
 }
 
 .login-shell {
@@ -447,7 +447,7 @@ select option {
     min-height: 100%;
     background:
         linear-gradient(180deg, rgba(3, 20, 36, 0.08), rgba(3, 20, 36, 0.3)),
-        url('/static/img/login-rionegro.svg') center / cover no-repeat;
+        url('/static/img/login-rionegro.png') center / cover no-repeat;
     position: relative;
 }
 
