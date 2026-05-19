@@ -44,7 +44,7 @@ El sistema utiliza una base de datos SQLite persistente con las siguientes tabla
 
 ## 4. Estado de Migración Web (V16 - Mayo 2026)
 * **Objetivo**: Crear una aplicación web empresarial auto-alojable con backend Flask y frontend Single Page Application (SPA).
-* **Fase Actual**: Plan de Implementación Aprobado e Instalación de Recursos del Proyecto.
+* **Fase Actual**: Completado con Éxito y Puesto en Producción Local / GitHub.
 
 ### Hitos Completados
 - [x] Extracción y análisis completo del código fuente de escritorio (versión v15).
@@ -52,13 +52,15 @@ El sistema utiliza una base de datos SQLite persistente con las siguientes tabla
 - [x] Creación y estructuración del `memory.md` del proyecto en el workspace.
 - [x] Configuración del entorno Node.js / NPM e instalación de la librería `motion` para animaciones premium.
 - [x] Clonación y montaje completo del framework de diseño inteligente `nexu-io/open-design` (incluyendo sus `design-systems` y más de 130 carpetas de habilidades en `/skills/open-design`).
-- [x] Elaboración de la arquitectura del backend en Flask que reutiliza los modelos y servicios de cálculo existentes.
+- [x] Elaboración y desarrollo del servidor backend en Flask (`app_web.py` y módulo `backend`) con soporte completo de cálculo financiero y API de administración.
+- [x] Diseño e implementación del frontend SPA glassmorphic en `frontend/templates/index.html` y `frontend/static/css/style.css`.
+- [x] Integración de la imagen oficial premium de la Alcaldía de Rionegro (`login-rionegro.png`) en el fondo de la pantalla de inicio de sesión.
+- [x] Control de interactividad cliente, autenticación de sesión y liquidación en tiempo real en `frontend/static/js/app.js`.
+- [x] Inicialización de repositorio Git, vinculación de remoto a GitHub (`https://github.com/aranjara/Liquidador-Multas-Policia.git`) y sincronización exitosa de la rama `main`.
 
 ### Siguientes Pasos
-- [ ] Creación del servidor de backend `app_web.py`.
-- [ ] Diseño y desarrollo de la interfaz responsiva glassmorphic en `templates/index.html` y `static/css/style.css`.
-- [ ] Implementación de la interactividad del cliente SPA y llamadas API con fetch en `static/js/app.js`.
-- [ ] Fase de validación en navegador de los flujos de cálculo e interfaces de administración de tasas y parámetros.
+- [ ] Recoger retroalimentación de los usuarios de la Dirección de Rentas sobre la experiencia de usuario y flujos.
+- [ ] Implementar nuevas características solicitadas por el Centro de Inteligencia Fiscal.
 
 ---
 
@@ -66,22 +68,17 @@ El sistema utiliza una base de datos SQLite persistente con las siguientes tabla
 - **v15 (Escritorio)**: Lanzamiento final de escritorio con base de datos SQLite local, módulo de administración de usuarios y cambio de claves provisionales.
 - **v16 (Web)**: Inicio de la migración completa a versión web responsiva de alto rendimiento.
 - **v16.1 (Git & Server Setup)**: Inicialización del repositorio Git local, adición de `.gitignore` optimizado y validación exitosa del servidor Flask en http://127.0.0.1:5000.
+- **v16.2 (Diseño Alcaldía & Publicación)**: Integración de la imagen de fondo oficial de Rionegro en el login, compleción de estilos glassmorphic premium, actualización de la bitácora de memoria y sincronización de cambios al repositorio en GitHub.
 
 ---
 
-## 6. Procedimiento para Subir a GitHub
-Para vincular este proyecto a tu cuenta de GitHub y subirlo por primera vez, ejecuta los siguientes comandos en tu terminal desde la raíz del proyecto:
-
-1. **Crear repositorio en GitHub**: Crea un repositorio vacío en tu cuenta de GitHub (ej: `liquidador-multas-web`).
-2. **Vincular el repositorio remoto**:
-   ```bash
-   git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
-   ```
-3. **Renombrar la rama principal (opcional, recomendado)**:
-   ```bash
-   git branch -M main
-   ```
-4. **Subir los archivos**:
-   ```bash
-   git push -u origin main
-   ```
+## 6. Sincronización con GitHub
+El proyecto está completamente vinculado y sincronizado con el repositorio oficial:
+- **URL Remota**: `https://github.com/aranjara/Liquidador-Multas-Policia.git`
+- **Rama Principal**: `main`
+- **Comando de actualización habitual**:
+  ```bash
+  git add .
+  git commit -m "feat: descripción del cambio"
+  git push origin main
+  ```
