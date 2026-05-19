@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1600" role="img" aria-label="Alcaldia de Rionegro">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#07345b"/>
+      <stop offset="0.52" stop-color="#0b5b83"/>
+      <stop offset="1" stop-color="#08324d"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffcf69"/>
+      <stop offset="0.58" stop-color="#f3a82b"/>
+      <stop offset="1" stop-color="#9c6114"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#76c96a"/>
+      <stop offset="1" stop-color="#168a69"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#001421" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="1600" fill="url(#sky)"/>
+  <rect width="900" height="1600" fill="#052a45" opacity="0.38"/>
+  <circle cx="150" cy="220" r="260" fill="#1d81ad" opacity="0.22"/>
+  <circle cx="760" cy="470" r="360" fill="#071d36" opacity="0.2"/>
+
+  <g opacity="0.33" fill="#dff5ff">
+    <rect x="119" y="514" width="662" height="415" rx="8"/>
+    <rect x="175" y="442" width="214" height="82" rx="4"/>
+    <rect x="511" y="442" width="214" height="82" rx="4"/>
+    <path d="M163 441c18-126 57-191 119-191s101 65 119 191H163Z"/>
+    <path d="M499 441c18-126 57-191 119-191s101 65 119 191H499Z"/>
+    <path d="M389 512 450 455l61 57Z"/>
+    <rect x="227" y="569" width="58" height="170" rx="29" fill="#05233b"/>
+    <rect x="614" y="569" width="58" height="170" rx="29" fill="#05233b"/>
+    <rect x="203" y="813" width="80" height="116" rx="40" fill="#05233b"/>
+    <rect x="617" y="813" width="80" height="116" rx="40" fill="#05233b"/>
+    <rect x="392" y="760" width="116" height="169" rx="58" fill="#05233b"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <path d="M297 635h306v222c0 93-68 162-153 162S297 950 297 857V635Z" fill="url(#gold)" stroke="#43270b" stroke-width="5"/>
+    <path d="M330 675h240v170c0 72-54 126-120 126S330 917 330 845V675Z" fill="#fff4ce" opacity="0.9"/>
+    <text x="450" y="667" text-anchor="middle" fill="#351c06" font-family="Arial, sans-serif" font-size="37" font-weight="800">RIONEGRO</text>
+    <text x="450" y="955" text-anchor="middle" fill="#351c06" font-family="Arial, sans-serif" font-size="39" font-weight="800">SANTIAGO</text>
+    <text x="315" y="820" text-anchor="middle" transform="rotate(-90 315 820)" fill="#351c06" font-family="Arial, sans-serif" font-size="32" font-weight="800">CIUDAD</text>
+    <text x="585" y="820" text-anchor="middle" transform="rotate(90 585 820)" fill="#351c06" font-family="Arial, sans-serif" font-size="32" font-weight="800">DE ARMA</text>
+    <path d="M450 735c34 15 56 45 56 83 0 63-45 103-56 118-11-15-56-55-56-118 0-38 22-68 56-83Z" fill="#9c6a26"/>
+    <path d="M420 746c-28 17-43 36-51 60 30-7 55 3 73 30" fill="none" stroke="#9c6a26" stroke-width="22" stroke-linecap="round"/>
+    <path d="M480 746c28 17 43 36 51 60-30-7-55 3-73 30" fill="none" stroke="#9c6a26" stroke-width="22" stroke-linecap="round"/>
+    <rect x="407" y="731" width="86" height="86" rx="8" fill="#174c79"/>
+    <path d="M407 774h86M450 731v86" stroke="#f4c451" stroke-width="7"/>
+    <rect x="414" y="739" width="29" height="29" fill="#bf262e"/>
+    <rect x="457" y="739" width="29" height="29" fill="#1f6f9d"/>
+    <rect x="414" y="781" width="29" height="29" fill="#1f6f9d"/>
+    <rect x="457" y="781" width="29" height="29" fill="#bf262e"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <text x="450" y="1114" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="58" font-weight="800">Alcaldia de Rionegro</text>
+    <text x="450" y="1173" text-anchor="middle" fill="#eff8ff" font-family="Arial, sans-serif" font-size="32" font-weight="700">Departamento de Antioquia</text>
+  </g>
+
+  <path d="M0 1318c130-95 266-119 410-73 155 50 325 12 490-113v468H0Z" fill="url(#green)"/>
+  <path d="M0 1382c138-63 275-74 410-32 170 53 322 26 490-85v335H0Z" fill="#0d6e5f" opacity="0.35"/>
+  <g opacity="0.9">
+    <rect x="48" y="1188" width="269" height="312" fill="#f4f2ef"/>
+    <path d="M31 1188h304l-152-128Z" fill="#c92f2d"/>
+    <rect x="86" y="1264" width="44" height="134" rx="20" fill="#07243f"/>
+    <rect x="176" y="1264" width="44" height="134" rx="20" fill="#07243f"/>
+    <rect x="266" y="1264" width="44" height="134" rx="20" fill="#07243f"/>
+    <rect x="390" y="1261" width="310" height="178" fill="#a7322b"/>
+    <rect x="417" y="1290" width="55" height="94" fill="#0b4d73"/>
+    <rect x="501" y="1290" width="55" height="94" fill="#0b4d73"/>
+    <rect x="585" y="1290" width="55" height="94" fill="#0b4d73"/>
+    <path d="M377 1261h336l-36-47H413Z" fill="#d18a28"/>
+  </g>
+</svg>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquidador de Multas de Policía - Alcaldía de Rionegro</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- Background Glow Elements -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+    <div class="glow-bg glow-3"></div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="app" class="app-container">
+        
+        <!-- ==================== LOGIN VIEW ==================== -->
+        <div id="login-view" class="view login-view active">
+            <section class="login-shell">
+                <div class="login-visual" aria-hidden="true"></div>
+                <div class="login-card glass">
+                <div class="login-header">
+                    <div class="logo-area">
+                        <i class="fa-solid fa-shield-halved brand-logo"></i>
+                    </div>
+                    <h1>Fiscalía de Rentas</h1>
+                    <h2>Liquidador de Multas de Policía</h2>
+                    <p class="subtitle">Centro de Inteligencia Fiscal - Rionegro</p>
+                </div>
+                
+                <form id="login-form" class="login-form">
+                    <div class="input-group">
+                        <label for="username"><i class="fa-regular fa-user"></i> Usuario</label>
+                        <input type="text" id="username" placeholder="Ingresa tu usuario" required autocomplete="username">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password"><i class="fa-solid fa-lock"></i> Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" placeholder="Ingresa tu contraseña" required autocomplete="current-password">
+                            <button type="button" id="toggle-pwd-btn" class="toggle-pwd"><i class="fa-regular fa-eye"></i></button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span class="btn-text">Iniciar Sesión</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+                </form>
+                
+                <div id="login-error" class="alert alert-danger hidden">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span id="login-error-msg">Usuario o contraseña incorrectos.</span>
+                </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== DASHBOARD VIEW ==================== -->
+        <div id="dashboard-view" class="view dashboard-view hidden">
+            
+            <!-- App Header -->
+            <header class="app-header glass">
+                <div class="header-brand">
+                    <i class="fa-solid fa-shield-halved brand-icon-small"></i>
+                    <div>
+                        <h1>Liquidador de Multas</h1>
+                        <p class="header-subtitle">Rentas - Municipio de Rionegro</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Area -->
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div class="user-info">
+                        <span id="profile-name" class="user-name">Cargando...</span>
+                        <span id="profile-role" class="user-role">Rol</span>
+                    </div>
+                    <div class="profile-actions">
+                        <button id="open-change-pwd-btn" class="btn-icon" title="Cambiar Contraseña">
+                            <i class="fa-solid fa-key"></i>
+                        </button>
+                        <button id="logout-btn" class="btn-icon btn-logout" title="Cerrar Sesión">
+                            <i class="fa-solid fa-power-off"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Layout (Sidebar & Tab Contents) -->
+            <div class="dashboard-body">
+                
+                <!-- Sidebar Menu Navigation -->
+                <aside class="sidebar glass">
+                    <nav class="nav-menu">
+                        <button class="nav-item active" data-tab="tab-liquidador">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span>Liquidador</span>
+                        </button>
+                        <button class="nav-item admin-only hidden" data-tab="tab-parametros">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span>Parámetros</span>
+                        </button>
+                        <button class="nav-item admin-only hidden" data-tab="tab-unidades">
+                            <i class="fa-solid fa-coins"></i>
+                            <span>Valores Unidad</span>
+                        </button>
+                        <button class="nav-item admin-only hidden" data-tab="tab-tasas">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Tasas de Interés</span>
+                        </button>
+                        <button class="nav-item admin-only hidden" data-tab="tab-usuarios">
+                            <i class="fa-solid fa-users-gear"></i>
+                            <span>Usuarios</span>
+                        </button>
+                    </nav>
+                </aside>
+
+                <!-- Tab Contents Container -->
+                <main class="content-area">
+                    
+                    <!-- 1. LIQUIDADOR TAB -->
+                    <section id="tab-liquidador" class="tab-pane active">
+                        <div class="pane-grid">
+                            
+                            <!-- Input Form Card -->
+                            <div class="card glass form-card">
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-file-invoice-dollar text-primary"></i> Nueva Liquidación</h3>
+                                    <p>Ingrese los datos para calcular el valor total de la multa</p>
+                                </div>
+                                <div class="card-body">
+                                    <form id="liquidador-form">
+                                        <!-- Concept Selection -->
+                                        <div class="form-group">
+                                            <label for="calc-concept"><i class="fa-solid fa-list-check"></i> Concepto de Multa</label>
+                                            <select id="calc-concept" required>
+                                                <!-- Dyn Loaded -->
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Grid for Dates -->
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="calc-fecha-multa"><i class="fa-regular fa-calendar-xmark"></i> Fecha de la Multa</label>
+                                                <input type="date" id="calc-fecha-multa" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="calc-fecha-liq"><i class="fa-regular fa-calendar-check"></i> Fecha de Liquidación</label>
+                                                <input type="date" id="calc-fecha-liq" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Dynamic inputs based on concept selection -->
+                                        <div id="dynamic-fields-area">
+                                            <!-- Quantities (For specials) -->
+                                            <div id="qty-field" class="form-group hidden">
+                                                <label for="calc-qty" id="qty-label"><i class="fa-solid fa-calculator"></i> Cantidad de Unidades</label>
+                                                <input type="number" id="calc-qty" step="any" min="0" placeholder="Ingrese cantidad">
+                                            </div>
+                                            <!-- Manual value (For others/non-tax) -->
+                                            <div id="manual-value-field" class="form-group hidden">
+                                                <label for="calc-manual-value"><i class="fa-solid fa-hand-holding-dollar"></i> Valor Base Manual ($)</label>
+                                                <input type="number" id="calc-manual-value" step="any" min="0" placeholder="Ingrese valor base en pesos">
+                                            </div>
+                                            <!-- Community service check (Only for general type 3 & 4) -->
+                                            <div id="community-field" class="checkbox-group hidden">
+                                                <label class="checkbox-container">
+                                                    <input type="checkbox" id="calc-community">
+                                                    <span class="checkmark"></span>
+                                                    <span class="checkbox-text">
+                                                        <strong>¿Realizó Curso / Programa Comunitario?</strong>
+                                                        <small>Aplica descuento adicional para Tipo 3 y 4 (Total 75%)</small>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary btn-block btn-lg margin-top-md">
+                                            <i class="fa-solid fa-calculator"></i>
+                                            <span>Liquidar Valor Multa</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Result Display Card -->
+                            <div class="card glass result-card">
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-square-poll-vertical text-secondary"></i> Resultado de Liquidación</h3>
+                                    <p>Resumen detallado de los montos resultantes</p>
+                                </div>
+                                <div class="card-body result-placeholder-body" id="result-placeholder">
+                                    <div class="result-placeholder">
+                                        <i class="fa-solid fa-receipt placeholder-icon"></i>
+                                        <p>Ingrese los datos de la multa a la izquierda y presione <strong>"Liquidar Valor Multa"</strong> para visualizar el desglose financiero.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body hidden" id="result-content">
+                                    <!-- Big Banner Total -->
+                                    <div class="result-total-banner">
+                                        <span class="banner-title">TOTAL A PAGAR</span>
+                                        <span class="banner-value" id="res-total">$0</span>
+                                        <span class="banner-subtitle" id="res-concept-title">Concepto de multa</span>
+                                    </div>
+                                    
+                                    <!-- Result Grid Columns -->
+                                    <div class="result-breakdown-grid">
+                                        <div class="breakdown-item">
+                                            <span class="label">Valor Base de Multa:</span>
+                                            <span class="value" id="res-base">$0</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="label">Unidad Aplicada:</span>
+                                            <span class="value" id="res-unit-detail">0 UVB</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="label">Días de Mora:</span>
+                                            <span class="value" id="res-days">0 días</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="label">Descuento Aplicado:</span>
+                                            <span class="value text-success" id="res-discount">$0</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="label">Intereses de Mora:</span>
+                                            <span class="value text-warning" id="res-interests">$0</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="label">Tasa de Interés:</span>
+                                            <span class="value" id="res-rate">0%</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Calculation Formula Box -->
+                                    <div class="formula-box">
+                                        <h4><i class="fa-solid fa-code"></i> Reporte Detallado de Reglas</h4>
+                                        <p id="res-rules" class="rules-text">Cargando...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 2. PARAMETERS TAB -->
+                    <section id="tab-parametros" class="tab-pane">
+                        <div class="card glass max-width-md">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-sliders text-primary"></i> Parámetros Generales de Liquidación</h3>
+                                <p>Configuración general de límites de descuento e intereses por defecto</p>
+                            </div>
+                            <div class="card-body">
+                                <form id="parameters-form">
+                                    <div class="form-group">
+                                        <label for="param-dias"><i class="fa-regular fa-clock"></i> Días de Gracia para Descuento</label>
+                                        <input type="number" id="param-dias" min="0" required>
+                                        <small class="form-text">Días calendarios transcurridos en los que se permite aplicar descuento de pronto pago.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="param-porcentaje"><i class="fa-solid fa-percent"></i> Porcentaje de Descuento (%)</label>
+                                        <input type="number" id="param-porcentaje" min="0" max="100" step="any" required>
+                                        <small class="form-text">Descuento base aplicable por pronto pago (por defecto 50%).</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="param-tasa"><i class="fa-solid fa-arrow-trend-up"></i> Tasa de Interés Anual Fija No Tributaria (%)</label>
+                                        <input type="number" id="param-tasa" min="0" max="100" step="any" required>
+                                        <small class="form-text">Tasa de interés aplicable para multas no tributarias fijas (por defecto 12.0%).</small>
+                                    </div>
+                                    <div class="checkbox-group margin-bottom-md">
+                                        <label class="checkbox-container">
+                                            <input type="checkbox" id="param-permitir-editar">
+                                            <span class="checkmark"></span>
+                                            <span class="checkbox-text">
+                                                <strong>Permitir editar manualmente la Fecha de Liquidación</strong>
+                                                <small>Si está desactivado, el sistema forzará el uso del día de hoy.</small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa-solid fa-floppy-disk"></i> Guardar Parámetros
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 3. UNIDADES TAB -->
+                    <section id="tab-unidades" class="tab-pane">
+                        <div class="card glass">
+                            <div class="card-header pane-header-flex">
+                                <div>
+                                    <h3><i class="fa-solid fa-coins text-primary"></i> Valores Históricos de Unidades de Medida</h3>
+                                    <p>Historial y equivalencias de SMMLV, SMDLV y UVB por vigencia anual</p>
+                                </div>
+                                <button class="btn btn-secondary btn-sm" id="btn-open-unit-modal">
+                                    <i class="fa-solid fa-plus"></i> Registrar Unidad
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="table-unidades">
+                                        <thead>
+                                            <tr>
+                                                <th>Vigencia (Año)</th>
+                                                <th>Tipo de Unidad</th>
+                                                <th>Valor Unitario ($)</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dyn Loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 4. TASAS TAB -->
+                    <section id="tab-tasas" class="tab-pane">
+                        <div class="card glass">
+                            <div class="card-header pane-header-flex">
+                                <div>
+                                    <h3><i class="fa-solid fa-chart-line text-primary"></i> Tasas de Interés de Mora (DIAN)</h3>
+                                    <p>Listado e historial de tasas de mora tributaria y no tributaria registradas</p>
+                                </div>
+                                <button class="btn btn-secondary btn-sm" id="btn-open-rate-modal">
+                                    <i class="fa-solid fa-plus"></i> Registrar Tasa Histórica
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive select-filters">
+                                    <div class="table-actions-filter">
+                                        <label for="filter-rate-method"><i class="fa-solid fa-filter"></i> Filtrar por Categoría:</label>
+                                        <select id="filter-rate-method" class="select-sm">
+                                            <option value="TABLA_HISTORICA_GENERAL">MULTAS GENERALES (DIAN)</option>
+                                            <option value="TABLA_HISTORICA_EVENTOS">AGLOMERACIONES COMPLEJAS</option>
+                                            <option value="TABLA_HISTORICA_URBANISMO">INFRACCION URBANISTICA</option>
+                                            <option value="TABLA_HISTORICA_VISUAL">CONTAMINACION VISUAL</option>
+                                            <option value="TABLA_HISTORICA_OTRAS">OTRAS MULTAS</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <table class="table" id="table-tasas">
+                                        <thead>
+                                            <tr>
+                                                <th>Año</th>
+                                                <th>Mes</th>
+                                                <th>Tasa Anual (%)</th>
+                                                <th>Tasa Mensual Equivalente</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dyn Loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 5. USUARIOS TAB -->
+                    <section id="tab-usuarios" class="tab-pane">
+                        <div class="card glass">
+                            <div class="card-header pane-header-flex">
+                                <div>
+                                    <h3><i class="fa-solid fa-users-gear text-primary"></i> Gestión de Usuarios del Sistema</h3>
+                                    <p>Administración de credenciales, roles, activación y reseteo de claves provisionales</p>
+                                </div>
+                                <button class="btn btn-secondary btn-sm" id="btn-open-user-modal">
+                                    <i class="fa-solid fa-user-plus"></i> Crear Usuario
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="table-usuarios">
+                                        <thead>
+                                            <tr>
+                                                <th>Usuario</th>
+                                                <th>Nombre</th>
+                                                <th>Rol</th>
+                                                <th>Último Acceso</th>
+                                                <th>Cambio Clave Obligatorio</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dyn Loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODALS AND DIALOGS ==================== -->
+    
+    <!-- 1. CAMBIO DE CONTRASEÑA MODAL -->
+    <div id="pwd-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-key text-primary"></i> Actualizar Contraseña</h3>
+                <button class="btn-close-modal" id="btn-close-pwd-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" id="force-pwd-alert">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span><strong>Cambio de clave obligatorio:</strong> El administrador ha reestablecido su cuenta o su clave es provisional. Debe cambiarla ahora para poder continuar.</span>
+                </div>
+                
+                <form id="pwd-form">
+                    <div class="form-group">
+                        <label for="pwd-old">Contraseña Actual</label>
+                        <input type="password" id="pwd-old" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd-new">Nueva Contraseña</label>
+                        <input type="password" id="pwd-new" required minlength="6">
+                        <small class="form-text">Mínimo 6 caracteres.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd-confirm">Confirmar Nueva Contraseña</label>
+                        <input type="password" id="pwd-confirm" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Actualizar Contraseña</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. REGISTRAR VALOR UNIDAD MODAL -->
+    <div id="unit-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> Registrar Valor de Unidad</h3>
+                <button class="btn-close-modal" id="btn-close-unit-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="unit-form">
+                    <div class="form-group">
+                        <label for="unit-anio">Vigencia (Año)</label>
+                        <input type="number" id="unit-anio" min="2000" max="2100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit-tipo">Tipo de Unidad</label>
+                        <select id="unit-tipo" required>
+                            <option value="SMMLV">SMMLV (Salario Mínimo Mensual)</option>
+                            <option value="SMDLV">SMDLV (Salario Mínimo Diario)</option>
+                            <option value="UVB">UVB (Unidad de Valor de Rionegro)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit-valor">Valor de Unidad ($)</label>
+                        <input type="number" id="unit-valor" step="any" min="0" placeholder="Ej: 1300000" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Guardar Valor Unidad</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. REGISTRAR TASA DE INTERÉS MODAL -->
+    <div id="rate-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> Registrar Tasa de Interés</h3>
+                <button class="btn-close-modal" id="btn-close-rate-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="rate-form">
+                    <div class="form-group">
+                        <label for="rate-metodo">Categoría / Método de Interés</label>
+                        <select id="rate-metodo" required>
+                            <option value="TABLA_HISTORICA_GENERAL">MULTAS GENERALES (DIAN)</option>
+                            <option value="TABLA_HISTORICA_EVENTOS">AGLOMERACIONES COMPLEJAS</option>
+                            <option value="TABLA_HISTORICA_URBANISMO">INFRACCION URBANISTICA</option>
+                            <option value="TABLA_HISTORICA_VISUAL">CONTAMINACION VISUAL</option>
+                            <option value="TABLA_HISTORICA_OTRAS">OTRAS MULTAS</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rate-anio">Año</label>
+                            <input type="number" id="rate-anio" min="2000" max="2100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rate-mes">Mes</label>
+                            <input type="number" id="rate-mes" min="1" max="12" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate-tasa">Tasa de Interés Anual (%)</label>
+                        <input type="number" id="rate-tasa" step="any" min="0" placeholder="Ej: 22.36" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Guardar Tasa de Interés</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. CREAR USUARIO MODAL -->
+    <div id="user-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-plus"></i> Registrar Nuevo Usuario</h3>
+                <button class="btn-close-modal" id="btn-close-user-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="user-form">
+                    <div class="form-group">
+                        <label for="user-username">Usuario</label>
+                        <input type="text" id="user-username" placeholder="Ej: jgomez" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-nombre">Nombre Completo</label>
+                        <input type="text" id="user-nombre" placeholder="Ej: Juan Gómez" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Contraseña Provisional</label>
+                        <input type="password" id="user-password" required minlength="6" placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-rol">Rol en el Sistema</label>
+                        <select id="user-rol" required>
+                            <option value="liquidador">Liquidador (Solo consultas y cálculos)</option>
+                            <option value="admin">Administrador (Control total y parámetros)</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group margin-bottom-md">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="user-force-change" checked>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Exigir cambio de contraseña en el primer acceso</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Registrar Usuario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST MESSAGES ==================== -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Motion JS / Application logic -->
+    <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
