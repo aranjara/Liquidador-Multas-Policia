@@ -1,3 +1,32 @@
+// Error reporter client-side to capture debug info on the backend
+window.onerror = function (message, source, lineno, colno, error) {
+    fetch('/api/debug/error', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            type: 'error',
+            message: message,
+            source: source,
+            lineno: lineno,
+            colno: colno,
+            stack: error ? error.stack : null
+        })
+    }).catch(err => console.error('Failed to log error to backend', err));
+    return false;
+};
+
+window.onunhandledrejection = function (event) {
+    fetch('/api/debug/error', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            type: 'unhandledrejection',
+            message: event.reason ? (event.reason.message || String(event.reason)) : 'Unhandled Rejection',
+            stack: event.reason ? event.reason.stack : null
+        })
+    }).catch(err => console.error('Failed to log rejection to backend', err));
+};
+
 // Fallbacks autosanables locales para ejecución sin internet/intranet municipal
 let animate = async (element, keyframes, options) => {
     if (typeof element === 'string') element = document.querySelectorAll(element);
@@ -31,14 +60,23 @@ let animate = async (element, keyframes, options) => {
     return Promise.resolve();
 };
 
-let spring = (config) => 'ease-out';
+let spring = (config) => {
+    // Si stiffness y damping están configurados, determinamos si es una curva rebote (bouncy) o suave (smooth)
+    if (config && config.stiffness && config.stiffness > 300) {
+        // Para botones (e.g. stiffness: 400, damping: 12)
+        return 'cubic-bezier(0.34, 1.56, 0.64, 1)'; // easeOutBack (bouncy premium)
+    }
+    // Para toasts y otros (e.g. stiffness: 200, damping: 15)
+    return 'cubic-bezier(0.22, 1, 0.36, 1)'; // easeOutQuint (desaceleración suave premium)
+};
 
 // Intentar cargar la librería Motion del CDN de manera asíncrona y segura
 (async () => {
     try {
         const module = await import('https://cdn.jsdelivr.net/npm/motion@12.38.0/+esm');
         animate = module.animate;
-        spring = module.spring;
+        // NO sobreescribir 'spring' con module.spring ya que los generadores de Motion-DOM no son
+        // compatibles directamente con el easing nativo de Web Animations API en todos los navegadores.
         console.log('Motion library cargada exitosamente del CDN.');
     } catch (e) {
         console.warn('Fallo al cargar la librería Motion del CDN. Usando fallbacks locales sin conexión.', e);
@@ -704,128 +742,6 @@ function bindUserActions() {
             }
         };
     });
-}
-
-// --- ACCIONES DE UNIDADES ---
-
-function bindUnitActions() {
-    // Editar unidad
-    document.querySelectorAll('.btn-edit-unit').forEach(btn => {
-        btn.onclick = async (e) => {
-            const id = btn.getAttribute('data-id');
-            const anio = btn.getAttribute('data-anio');
-            const tipo = btn.getAttribute('data-tipo');
-            const valor = btn.getAttribute('data-valor');
-            
-            document.getElementById('unit-anio').value = anio;
-            document.getElementById('unit-tipo').value = tipo;
-            document.getElementById('unit-valor').value = valor;
-            
-            const modal = document.getElementById('unit-modal');
-            modal.classList.remove('hidden');
-            animate(modal, { opacity: [0, 1] }, { duration: 0.25 });
-        };
-    });
-    
-    // Eliminar unidad
-    document.querySelectorAll('.btn-delete-unit').forEach(btn => {
-        btn.onclick = async (e) => {
-            const id = btn.getAttribute('data-id');
-            if (!confirm('¿Está seguro de eliminar este valor de unidad?')) return;
-            
-            try {
-                const res = await fetch(`/api/units/${id}`, {
-                    method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const data = await res.json();
-                
-                if (data.success) {
-                    showToast(data.message, 'success');
-                    const uRes = await fetch('/api/units');
-                    state.units = await uRes.json();
-                    renderUnitsTable();
-                } else {
-                    showToast(data.message, 'error');
-                }
-            } catch (err) {
-                showToast('Error al eliminar el valor de unidad: ' + err, 'error');
-            }
-        };
-    });
-}
-
-// --- ACCIONES DE TASAS ---
-
-function bindRateActions() {
-    // Editar tasa
-    document.querySelectorAll('.btn-edit-rate').forEach(btn => {
-        btn.onclick = async (e) => {
-            const metodo = btn.getAttribute('data-metodo');
-            const anio = btn.getAttribute('data-anio');
-            const mes = btn.getAttribute('data-mes');
-            const tasa = btn.getAttribute('data-tasa');
-            
-            document.getElementById('rate-metodo').value = metodo;
-            document.getElementById('rate-anio').value = anio;
-            document.getElementById('rate-mes').value = mes;
-            document.getElementById('rate-tasa').value = tasa;
-            
-            const modal = document.getElementById('rate-modal');
-            modal.classList.remove('hidden');
-            animate(modal, { opacity: [0, 1] }, { duration: 0.25 });
-        };
-    });
-    
-    // Eliminar tasa
-    document.querySelectorAll('.btn-delete-rate').forEach(btn => {
-        btn.onclick = async (e) => {
-            const id = btn.getAttribute('data-id');
-            if (!confirm('¿Está seguro de eliminar esta tasa de interés?')) return;
-            
-            try {
-                const res = await fetch(`/api/rates/${id}`, {
-                    method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const data = await res.json();
-                
-                if (data.success) {
-                    showToast(data.message, 'success');
-                    const rRes = await fetch('/api/rates');
-                    state.rates = await rRes.json();
-                    renderRatesTable();
-                } else {
-                    showToast(data.message, 'error');
-                }
-            } catch (err) {
-                showToast('Error al eliminar la tasa de interés: ' + err, 'error');
-            }
-        };
-    });
-}
-            
-            try {
-                const res = await fetch('/api/users/reset-password', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id, provisional_password: cleanPwd })
-                });
-                const data = await res.json();
-                
-                if (data.success) {
-                    showToast(data.message, 'success');
-                    const usRes = await fetch('/api/users');
-                    state.users = await usRes.json();
-                    renderUsersTable();
-                } else {
-                    showToast(data.message, 'error');
-                }
-            } catch (err) {
-                showToast('Error al resetear la clave del usuario: ' + err, 'error');
-            }
-        };
-    });
     
     // 4. Eliminar usuario
     document.querySelectorAll('.btn-delete-user').forEach(btn => {
@@ -885,6 +801,101 @@ function bindRateActions() {
                 }
             } catch (err) {
                 showToast('Error al editar el usuario: ' + err, 'error');
+            }
+        };
+    });
+}
+
+function bindUnitActions() {
+    // Editar unidad
+    document.querySelectorAll('.btn-edit-unit').forEach(btn => {
+        btn.onclick = async (e) => {
+            const id = btn.getAttribute('data-id');
+            const anio = btn.getAttribute('data-anio');
+            const tipo = btn.getAttribute('data-tipo');
+            const valor = btn.getAttribute('data-valor');
+            
+            document.getElementById('unit-anio').value = anio;
+            document.getElementById('unit-tipo').value = tipo;
+            document.getElementById('unit-valor').value = valor;
+            
+            const modal = document.getElementById('unit-modal');
+            modal.classList.remove('hidden');
+            animate(modal, { opacity: [0, 1] }, { duration: 0.25 });
+        };
+    });
+    
+    // Eliminar unidad
+    document.querySelectorAll('.btn-delete-unit').forEach(btn => {
+        btn.onclick = async (e) => {
+            const id = btn.getAttribute('data-id');
+            if (!confirm('¿Está seguro de eliminar este valor de unidad?')) return;
+            
+            try {
+                const res = await fetch(`/api/units/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showToast(data.message, 'success');
+                    const uRes = await fetch('/api/units');
+                    state.units = await uRes.json();
+                    renderUnitsTable();
+                } else {
+                    showToast(data.message, 'error');
+                }
+            } catch (err) {
+                showToast('Error al eliminar el valor de unidad: ' + err, 'error');
+            }
+        };
+    });
+}
+
+function bindRateActions() {
+    // Editar tasa
+    document.querySelectorAll('.btn-edit-rate').forEach(btn => {
+        btn.onclick = async (e) => {
+            const metodo = btn.getAttribute('data-metodo');
+            const anio = btn.getAttribute('data-anio');
+            const mes = btn.getAttribute('data-mes');
+            const tasa = btn.getAttribute('data-tasa');
+            
+            document.getElementById('rate-metodo').value = metodo;
+            document.getElementById('rate-anio').value = anio;
+            document.getElementById('rate-mes').value = mes;
+            document.getElementById('rate-tasa').value = tasa;
+            
+            const modal = document.getElementById('rate-modal');
+            modal.classList.remove('hidden');
+            animate(modal, { opacity: [0, 1] }, { duration: 0.25 });
+        };
+    });
+    
+    // Eliminar tasa
+    document.querySelectorAll('.btn-delete-rate').forEach(btn => {
+        btn.onclick = async (e) => {
+            const id = btn.getAttribute('data-id');
+            if (!confirm('¿Está seguro de eliminar esta tasa de interés?')) return;
+            
+            try {
+                const res = await fetch(`/api/rates/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showToast(data.message, 'success');
+                    const rRes = await fetch('/api/rates');
+                    state.rates = await rRes.json();
+                    renderRatesTable();
+                } else {
+                    showToast(data.message, 'error');
+                }
+            } catch (err) {
+                showToast('Error al eliminar la tasa de interés: ' + err, 'error');
             }
         };
     });
@@ -1064,8 +1075,7 @@ async function checkSession() {
 
 // --- BINDING GENERAL DE EVENTOS DOM ---
 
-document.addEventListener('DOMContentLoaded', () => {
-    
+const initApp = () => {
     // 1. Verificación inicial de sesión
     checkSession();
     
@@ -1075,17 +1085,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('pwd-form').onsubmit = handleChangePassword;
     
     // Ocultar / Mostrar clave
-    document.getElementById('toggle-pwd-btn').onclick = () => {
-        const pwdInput = document.getElementById('password');
-        const icon = document.querySelector('#toggle-pwd-btn i');
-        if (pwdInput.type === 'password') {
-            pwdInput.type = 'text';
-            icon.className = 'fa-regular fa-eye-slash';
-        } else {
-            pwdInput.type = 'password';
-            icon.className = 'fa-regular fa-eye';
-        }
-    };
+    const toggleBtn = document.getElementById('toggle-pwd-btn');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pwdInput = document.getElementById('password');
+            const icon = toggleBtn.querySelector('i');
+            if (pwdInput && icon) {
+                if (pwdInput.type === 'password') {
+                    pwdInput.type = 'text';
+                    icon.className = 'fa-regular fa-eye-slash';
+                } else {
+                    pwdInput.type = 'password';
+                    icon.className = 'fa-regular fa-eye';
+                }
+            }
+        });
+    }
     
     // Modals Trigger/Close para Cambio de Clave Normal
     document.getElementById('open-change-pwd-btn').onclick = () => {
@@ -1164,7 +1180,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', () => {
         setTimeout(initButtonAnimations, 50);
     });
-});
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
 // --- ANIMACIONES INTERACTIVAS DE BOTONES CON MOTION (FISICA DE RESORTES) ---
 function initButtonAnimations() {

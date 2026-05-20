@@ -16,6 +16,10 @@ from .repositories import (
 )
 from .services import LiquidationError, LiquidationService
 
+import mimetypes
+mimetypes.add_type("application/javascript", ".js")
+mimetypes.add_type("text/css", ".css")
+
 BASE_DIR = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = BASE_DIR / "frontend"
 
@@ -119,6 +123,24 @@ def api_me():
     user_data = dict(user)
     user_data.pop("password_hash", None)
     return jsonify({"logged_in": True, "user": user_data})
+
+
+@app.route("/api/debug/error", methods=["POST"])
+def api_debug_error():
+    data = request.json or {}
+    # Imprimir en consola para ver en tiempo real
+    print("\n" + "="*40)
+    print("!!! CLIENT-SIDE JS ERROR DETECTED !!!")
+    for k, v in data.items():
+        print(f"  {k}: {v}")
+    print("="*40 + "\n")
+    
+    # También guardar en un archivo de logs en el workspace
+    log_file = BASE_DIR / "client_errors.log"
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(f"{datetime.now()}: {data}\n")
+    return jsonify({"success": True})
+
 
 
 @app.route("/api/auth/change-password", methods=["POST"])
