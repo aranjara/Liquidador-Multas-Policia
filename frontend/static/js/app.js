@@ -1137,9 +1137,6 @@ const initApp = () => {
     document.getElementById('rate-form').onsubmit = saveRate;
     document.getElementById('user-form').onsubmit = saveUser;
     
-    // Filtrador de Tasas por Categoría
-    document.getElementById('filter-rate-method').onchange = renderRatesTable;
-    
     // triggers de Modals
     document.getElementById('btn-open-unit-modal').onclick = () => {
         const modal = document.getElementById('unit-modal');
