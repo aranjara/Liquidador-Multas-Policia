@@ -230,6 +230,8 @@ class UnitValueRepository:
 class InterestRateRepository:
     @staticmethod
     def get_rate(metodo_interes: str, anio: int, mes: int) -> Optional[float]:
+        if metodo_interes != 'NO_TRIBUTARIA_FIJA':
+            metodo_interes = 'TABLA_HISTORICA_GENERAL'
         conn = get_connection()
         row = conn.execute(
             '''

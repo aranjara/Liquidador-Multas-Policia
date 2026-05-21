@@ -331,25 +331,15 @@
                         <div class="card glass">
                             <div class="card-header pane-header-flex">
                                 <div>
-                                    <h3><i class="fa-solid fa-chart-line text-primary"></i> Tasas de Interés de Mora (DIAN)</h3>
-                                    <p>Listado e historial de tasas de mora tributaria y no tributaria registradas</p>
+                                    <h3><i class="fa-solid fa-chart-line text-primary"></i> Tasas de Interés de Mora</h3>
+                                    <p>Listado e historial de tasas de mora tributaria registradas</p>
                                 </div>
                                 <button class="btn btn-secondary btn-sm" id="btn-open-rate-modal">
                                     <i class="fa-solid fa-plus"></i> Registrar Tasa Histórica
                                 </button>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive select-filters">
-                                    <div class="table-actions-filter">
-                                        <label for="filter-rate-method"><i class="fa-solid fa-filter"></i> Filtrar por Categoría:</label>
-                                        <select id="filter-rate-method" class="select-sm">
-                                            <option value="TABLA_HISTORICA_GENERAL">MULTAS GENERALES (DIAN)</option>
-                                            <option value="TABLA_HISTORICA_EVENTOS">AGLOMERACIONES COMPLEJAS</option>
-                                            <option value="TABLA_HISTORICA_URBANISMO">INFRACCION URBANISTICA</option>
-                                            <option value="TABLA_HISTORICA_VISUAL">CONTAMINACION VISUAL</option>
-                                            <option value="TABLA_HISTORICA_OTRAS">OTRAS MULTAS</option>
-                                        </select>
-                                    </div>
+                                <div class="table-responsive">
                                     
                                     <table class="table" id="table-tasas">
                                         <thead>
@@ -489,11 +479,7 @@
                     <div class="form-group">
                         <label for="rate-metodo">Categoría / Método de Interés</label>
                         <select id="rate-metodo" required>
-                            <option value="TABLA_HISTORICA_GENERAL">MULTAS GENERALES (DIAN)</option>
-                            <option value="TABLA_HISTORICA_EVENTOS">AGLOMERACIONES COMPLEJAS</option>
-                            <option value="TABLA_HISTORICA_URBANISMO">INFRACCION URBANISTICA</option>
-                            <option value="TABLA_HISTORICA_VISUAL">CONTAMINACION VISUAL</option>
-                            <option value="TABLA_HISTORICA_OTRAS">OTRAS MULTAS</option>
+                            <option value="TABLA_HISTORICA_GENERAL">HISTÓRICO TASAS DE INTERÉS</option>
                         </select>
                     </div>
                     <div class="form-row">

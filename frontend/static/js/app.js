@@ -337,11 +337,10 @@ function renderUnitsTable() {
 
 function renderRatesTable() {
     const tbody = document.querySelector('#table-tasas tbody');
-    const selectedMethod = document.getElementById('filter-rate-method').value;
     tbody.innerHTML = '';
     
-    // Filtrar por el método seleccionado
-    const filtered = state.rates.filter(r => r.metodo_interes === selectedMethod && r.activo !== 0);
+    // Filtrar por tabla histórica general unificada
+    const filtered = state.rates.filter(r => r.metodo_interes === 'TABLA_HISTORICA_GENERAL' && r.activo !== 0);
     filtered.sort((a, b) => b.anio - a.anio || b.mes - a.mes);
     
     filtered.forEach(r => {
