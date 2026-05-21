@@ -278,7 +278,7 @@ function renderConceptsDropdown() {
     state.concepts.forEach(c => {
         const option = document.createElement('option');
         option.value = c.id;
-        option.textContent = `[${c.codigo}] ${c.nombre}`;
+        option.textContent = c.nombre;
         select.appendChild(option);
     });
     

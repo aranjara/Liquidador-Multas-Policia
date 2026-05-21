@@ -481,7 +481,8 @@ select option {
 
 .login-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
+    line-height: 1.2;
 }
 
 .brand-logo {
@@ -504,7 +505,7 @@ select option {
     letter-spacing: -0.2px;
     display: block;
     width: fit-content;
-    margin: 0 auto 8px auto;
+    margin: 0 auto 3px auto;
 }
 
 .login-header h2 {
@@ -516,7 +517,7 @@ select option {
     -webkit-text-fill-color: transparent;
     display: block;
     width: fit-content;
-    margin: 0 auto 6px auto;
+    margin: 0 auto 3px auto;
 }
 
 .subtitle {
@@ -570,10 +571,14 @@ select option {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 14px 30px;
     border-radius: 0;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid rgba(255,255,255,0.18);
     margin-bottom: 4px;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 4px 24px rgba(21,101,192,0.10);
 }
 
 .header-brand {
@@ -1153,3 +1158,39 @@ select option {
         padding: 10px 16px;
     }
 }
+
+/* ====== HEADER BRAND LOGIN-STYLE ====== */
+.header-brand-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0 0 1px 0;
+    background: linear-gradient(135deg, #0a2540 0%, #1565c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.2px;
+    line-height: 1.15;
+}
+
+.header-brand-sub {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin: 0 0 1px 0;
+    background: linear-gradient(135deg, #0a2540 0%, #1565c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.3px;
+    line-height: 1.15;
+}
+
+.header-brand-caption {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #0a2540 0%, #1565c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    line-height: 1.15;
+}
+

@@ -29,7 +29,8 @@ app = Flask(
     static_folder=str(FRONTEND_DIR / "static"),
     static_url_path="/static",
 )
-app.secret_key = secrets.token_hex(24)
+import os
+app.secret_key = os.environ.get("SECRET_KEY", "e9c8b7a6d5e4f3g2h1_fixed_secret_key_liquidador")
 
 # Asegurar que las tablas estén inicializadas
 init_db()
