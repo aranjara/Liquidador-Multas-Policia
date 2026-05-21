@@ -347,9 +347,11 @@ function renderRatesTable() {
     filtered.forEach(r => {
         const tr = document.createElement('tr');
         const tasaMensual = (r.tasa_anual / 12.0).toFixed(4);
+        const meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const nombreMes = meses[r.mes] || ("Mes " + r.mes);
         tr.innerHTML = `
             <td>${r.anio}</td>
-            <td><strong>Mes ${r.mes}</strong></td>
+            <td><strong>${nombreMes}</strong></td>
             <td><span class="text-warning">${r.tasa_anual.toFixed(2)}%</span></td>
             <td>${tasaMensual}% mensual</td>
             <td><span class="badge badge-success">Vigente</span></td>
