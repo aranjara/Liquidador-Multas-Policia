@@ -447,6 +447,7 @@ async function calculateFine(e) {
     e.preventDefault();
     
     const conceptId = document.getElementById('calc-concept').value;
+    const expediente = document.getElementById('calc-expediente').value;
     const fMulta = formatDateToAPI(document.getElementById('calc-fecha-multa').value);
     const fLiq = formatDateToAPI(document.getElementById('calc-fecha-liq').value);
     const qty = document.getElementById('calc-qty').value;
@@ -485,11 +486,13 @@ async function calculateFine(e) {
         document.getElementById('res-concept-title').textContent = res.concept_name;
         document.getElementById('res-base').textContent = formatCurrency(res.valor_base);
         document.getElementById('res-unit-detail').textContent = `${res.cantidad_unidades} (${res.unidad_aplicada}) x ${formatCurrency(res.valor_unidad)}`;
-        document.getElementById('res-days').textContent = `${res.dias_mora} días (de ${res.dias_transcurridos} totales)`;
+        document.getElementById('res-days').textContent = `${res.dias_mora} días`;
         document.getElementById('res-discount').textContent = `-${formatCurrency(res.valor_descuento)} (${res.porcentaje_descuento}%)`;
         document.getElementById('res-interests').textContent = `+${formatCurrency(res.valor_interes)}`;
         document.getElementById('res-rate').textContent = `${res.tasa_interes_anual.toFixed(2)}% anual (${res.metodo_interes})`;
-        document.getElementById('res-rules').textContent = res.regla_aplicada;
+        
+        const ruleMessage = `Liquidación por Multa relacionada con el Código Nacional de Policía y Convivencia con número de expediente ${expediente} por Concepto de Multa ${res.concept_name} de Fecha ${document.getElementById('calc-fecha-multa').value} por valor a pagar de ${formatCurrency(res.total_pagar)} discriminado de la siguiente manera: Valor Multa: ${formatCurrency(res.valor_base)}, Descuento: ${formatCurrency(res.valor_descuento)}, Intereses de Mora: ${formatCurrency(res.valor_interes)}`;
+        document.getElementById('res-rules').textContent = ruleMessage;
         
         // Ocultar placeholder y mostrar contenido de resultados
         document.getElementById('result-placeholder').classList.add('hidden');

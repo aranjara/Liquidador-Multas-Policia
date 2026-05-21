@@ -139,6 +139,12 @@
                                 </div>
                                 <div class="card-body">
                                     <form id="liquidador-form">
+                                        <!-- N° de Expediente -->
+                                        <div class="form-group">
+                                            <label for="calc-expediente"><i class="fa-solid fa-folder-open"></i> N° de Expediente</label>
+                                            <input type="text" id="calc-expediente" placeholder="Ingrese número de expediente" required>
+                                        </div>
+                                        
                                         <!-- Concept Selection -->
                                         <div class="form-group">
                                             <label for="calc-concept"><i class="fa-solid fa-list-check"></i> Concepto de Multa</label>
@@ -243,7 +249,7 @@
                                     
                                     <!-- Calculation Formula Box -->
                                     <div class="formula-box">
-                                        <h4><i class="fa-solid fa-code"></i> Reporte Detallado de Reglas</h4>
+                                        <h4><i class="fa-solid fa-code"></i> Detalle de la Liquidación</h4>
                                         <p id="res-rules" class="rules-text">Cargando...</p>
                                     </div>
                                 </div>
@@ -541,12 +547,207 @@
                 </form>
             </div>
         </div>
+                                                <th>Tasa Anual (%)</th>
+                                                <th>Tasa Mensual Equivalente</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dyn Loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 5. USUARIOS TAB -->
+                    <section id="tab-usuarios" class="tab-pane">
+                        <div class="card glass">
+                            <div class="card-header pane-header-flex">
+                                <div>
+                                    <h3><i class="fa-solid fa-users-gear text-primary"></i> Gestión de Usuarios del Sistema</h3>
+                                    <p>Administración de credenciales, roles, activación y reseteo de claves provisionales</p>
+                                </div>
+                                <button class="btn btn-secondary btn-sm" id="btn-open-user-modal">
+                                    <i class="fa-solid fa-user-plus"></i> Crear Usuario
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="table-usuarios">
+                                        <thead>
+                                            <tr>
+                                                <th>Usuario</th>
+                                                <th>Nombre</th>
+                                                <th>Rol</th>
+                                                <th>Último Acceso</th>
+                                                <th>Cambio Clave Obligatorio</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dyn Loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODALS AND DIALOGS ==================== -->
+    
+    <!-- 1. CAMBIO DE CONTRASEÑA MODAL -->
+    <div id="pwd-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-key text-primary"></i> Actualizar Contraseña</h3>
+                <button class="btn-close-modal" id="btn-close-pwd-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" id="force-pwd-alert">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span><strong>Cambio de clave obligatorio:</strong> El administrador ha reestablecido su cuenta o su clave es provisional. Debe cambiarla ahora para poder continuar.</span>
+                </div>
+                
+                <form id="pwd-form">
+                    <div class="form-group">
+                        <label for="pwd-old">Contraseña Actual</label>
+                        <input type="password" id="pwd-old" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd-new">Nueva Contraseña</label>
+                        <input type="password" id="pwd-new" required minlength="6">
+                        <small class="form-text">Mínimo 6 caracteres.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd-confirm">Confirmar Nueva Contraseña</label>
+                        <input type="password" id="pwd-confirm" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Actualizar Contraseña</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. REGISTRAR VALOR UNIDAD MODAL -->
+    <div id="unit-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> Registrar Valor de Unidad</h3>
+                <button class="btn-close-modal" id="btn-close-unit-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="unit-form">
+                    <div class="form-group">
+                        <label for="unit-anio">Vigencia (Año)</label>
+                        <input type="number" id="unit-anio" min="2000" max="2100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit-tipo">Tipo de Unidad</label>
+                        <select id="unit-tipo" required>
+                            <option value="SMMLV">SMMLV (Salario Mínimo Mensual)</option>
+                            <option value="SMDLV">SMDLV (Salario Mínimo Diario)</option>
+                            <option value="UVB">UVB (Unidad de Valor de Rionegro)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit-valor">Valor de Unidad ($)</label>
+                        <input type="number" id="unit-valor" step="any" min="0" placeholder="Ej: 1300000" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Guardar Valor Unidad</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. REGISTRAR TASA DE INTERÉS MODAL -->
+    <div id="rate-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> Registrar Tasa de Interés</h3>
+                <button class="btn-close-modal" id="btn-close-rate-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="rate-form">
+                    <div class="form-group">
+                        <label for="rate-metodo">Categoría / Método de Interés</label>
+                        <select id="rate-metodo" required>
+                            <option value="TABLA_HISTORICA_GENERAL">HISTÓRICO TASAS DE INTERÉS</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rate-anio">Año</label>
+                            <input type="number" id="rate-anio" min="2000" max="2100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rate-mes">Mes</label>
+                            <input type="number" id="rate-mes" min="1" max="12" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate-tasa">Tasa de Interés Anual (%)</label>
+                        <input type="number" id="rate-tasa" step="any" min="0" placeholder="Ej: 22.36" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Guardar Tasa de Interés</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. CREAR USUARIO MODAL -->
+    <div id="user-modal" class="modal-overlay hidden">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-plus"></i> Registrar Nuevo Usuario</h3>
+                <button class="btn-close-modal" id="btn-close-user-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="user-form">
+                    <div class="form-group">
+                        <label for="user-username">Usuario</label>
+                        <input type="text" id="user-username" placeholder="Ej: jgomez" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-nombre">Nombre Completo</label>
+                        <input type="text" id="user-nombre" placeholder="Ej: Juan Gómez" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Contraseña Provisional</label>
+                        <input type="password" id="user-password" required minlength="6" placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-rol">Rol en el Sistema</label>
+                        <select id="user-rol" required>
+                            <option value="liquidador">Liquidador (Solo consultas y cálculos)</option>
+                            <option value="admin">Administrador (Control total y parámetros)</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group margin-bottom-md">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="user-force-change" checked>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Exigir cambio de contraseña en el primer acceso</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block margin-top-md">Registrar Usuario</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- ==================== TOAST MESSAGES ==================== -->
     <div id="toast-container" class="toast-container"></div>
 
     <!-- Motion JS / Application logic -->
-    <script type="module" src="/static/js/app.js?v=1.0.9"></script>
+    <script type="module" src="/static/js/app.js?v=1.1.0"></script>
 </body>
 </html>
