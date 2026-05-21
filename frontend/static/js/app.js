@@ -215,9 +215,7 @@ function handleConceptChange() {
         qtyField.classList.remove('hidden');
         qtyInput.required = true;
         
-        if (code === 'ME-EVENTOS') qtyLabel.innerHTML = '<i class="fa-solid fa-calculator"></i> Cantidad de SMMLV/UVB (Vigencia)';
-        if (code === 'ME-URBANISMO') qtyLabel.innerHTML = '<i class="fa-solid fa-calculator"></i> Metros Cuadrados / Unidades base';
-        if (code === 'ME-VISUAL') qtyLabel.innerHTML = '<i class="fa-solid fa-calculator"></i> Cantidad de Elementos Publicitarios';
+        qtyLabel.innerHTML = '<i class="fa-solid fa-calculator"></i> Cantidad de SMMLV/UVB (Vigencia)';
         
         animate(qtyField, { opacity: [0, 1], y: [8, 0] }, { duration: 0.25 });
         
