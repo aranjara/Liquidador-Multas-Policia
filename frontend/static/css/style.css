@@ -850,10 +850,13 @@ select option {
 
 .banner-value {
     font-family: var(--font-heading);
-    font-size: 38px;
-    font-weight: 800;
-    color: #ffffff;
-    text-shadow: 0 0 15px var(--color-primary-glow);
+    font-size: 42px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 8px rgba(21, 101, 192, 0.25));
+    margin: 4px 0;
 }
 
 .banner-subtitle {
